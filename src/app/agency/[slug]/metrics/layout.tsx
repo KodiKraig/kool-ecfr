@@ -14,7 +14,7 @@ export default function AgencyMetricsLayout({
           className="flex items-center p-2 font-medium hover:cursor-pointer hover:text-gray-400 hover:underline"
         >
           <ChevronLeft />
-          <button>Back to agencies</button>
+          <button>Back</button>
         </Link>
       </div>
       {children}
