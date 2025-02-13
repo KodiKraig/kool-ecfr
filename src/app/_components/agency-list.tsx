@@ -4,6 +4,7 @@ import { type Agency } from "@/server/lib/ecfr/admin";
 import { ArrowTurnDownRight } from "@/app/_icons/arrow-turn-down-right";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { api } from "@/trpc/react";
 
 const Agency = ({ agency }: { agency: Agency }) => {
   const router = useRouter();
@@ -37,7 +38,8 @@ const Agency = ({ agency }: { agency: Agency }) => {
   );
 };
 
-export const AgencyList = ({ agencies }: { agencies: Agency[] }) => {
+export const AgencyList = () => {
+  const [agencies] = api.admin.agencies.useSuspenseQuery();
   const [filteredAgencies, setFilteredAgencies] = useState(agencies);
   const [filter, setFilter] = useState("");
 
