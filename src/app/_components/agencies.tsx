@@ -11,12 +11,12 @@ const Agency = ({ agency }: { agency: Agency }) => {
   return (
     <div>
       <button
-        className="flex w-full items-center justify-between text-wrap rounded-lg p-2 text-start font-semibold transition-all hover:bg-gray-700 hover:text-gray-200"
+        className="flex w-full items-center justify-between gap-4 text-wrap rounded-lg p-2 text-start font-semibold transition-all hover:bg-gray-700 hover:text-gray-200"
         onClick={() => {
           router.push(`/agency/${agency.slug}/metrics`);
         }}
       >
-        <p>{agency.name}</p>
+        <p className="max-w-[600px] text-wrap">{agency.display_name}</p>
         <p className="pr-2 text-sm text-gray-300">
           {agency.cfr_references.length}
         </p>
@@ -83,18 +83,18 @@ export const AgencyList = ({ agencies }: { agencies: Agency[] }) => {
   const totalCount = calculateTotalCount(filteredAgencies);
 
   return (
-    <div className="flex w-3/4 flex-col items-center md:w-1/2">
+    <div className="flex w-full flex-col items-center">
       <input
         type="text"
         value={filter}
         onChange={(e) => handleFilterTextChange(e.target.value)}
         placeholder="Search for an agency"
-        className="w-full rounded-md bg-gray-600 p-2 focus:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700"
+        className="rounded-md bg-gray-600 p-2 focus:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700 md:w-96"
       />
 
       <p className="py-2 text-sm text-gray-400">{totalCount} agencies found</p>
 
-      <div className="flex max-h-[60vh] w-full flex-col overflow-y-auto border-b border-t border-gray-600 py-2">
+      <div className="flex max-h-[60vh] flex-col overflow-y-auto border-b border-t border-gray-600 py-2">
         {filteredAgencies.length === 0 && (
           <div className="p-2">No agencies found</div>
         )}

@@ -69,11 +69,12 @@ const ReferenceCardLineItem = ({
   }
 
   return (
-    <p className="font-medium">
-      {label} <span className="font-normal">{value}</span>
+    <p className="font-bold">
+      {label} <span className="font-semibold">{value}</span>
     </p>
   );
 };
+
 const ReferenceCard = ({ reference }: { reference: CFRReference }) => {
   return (
     <Card>
@@ -93,9 +94,11 @@ const AgencyInfo = async ({ slug }: { slug: string }) => {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex max-w-2xl flex-col items-center gap-2">
         <Link href={`/`} className="hover:cursor-pointer hover:underline">
-          <h1 className="text-2xl font-bold">{agency.display_name}</h1>
+          <h1 className="text-center text-2xl font-bold">
+            {agency.display_name}
+          </h1>
         </Link>
         <h2 className="text-lg font-medium text-gray-300">
           {agency.short_name}
@@ -109,7 +112,7 @@ const AgencyInfo = async ({ slug }: { slug: string }) => {
             "The locations in the Code of Federal Regulations where the agency is mentioned.",
         }}
       >
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {agency.cfr_references.map((reference, index) => (
             <div key={index}>
               <ReferenceCard reference={reference} />
@@ -133,8 +136,8 @@ const MetricCard = ({
 }) => {
   return (
     <Card>
-      <p className="text-lg font-medium">{label}</p>
-      <p className="text-2xl font-bold">{value}</p>
+      <p className="text-md font-medium md:text-lg">{label}</p>
+      <p className="text-lg font-bold md:text-2xl">{value}</p>
     </Card>
   );
 };
@@ -193,7 +196,7 @@ const AgencyHierarchy = async ({ slug }: { slug: string }) => {
       heading={{
         title: "Hierarchy",
         subtitle:
-          "A hierarchy of the agency's regulation changes for each title and chapter.",
+          "A hierarchy of the agency's regulation changes for each title and chapter over time.",
       }}
     >
       <div>{count.value}</div>
