@@ -45,7 +45,7 @@ export class SearchApi {
   async countsHierarchy(
     params?: SearchParams,
   ): Promise<CountsHierarchyResponse> {
-    return this.get("/search/v1/hierarchy/count", params);
+    return this.get("/search/v1/counts/hierarchy", params);
   }
 
   async countsDaily(params?: SearchParams): Promise<CountsDailyResponse> {

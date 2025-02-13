@@ -14,9 +14,7 @@ export const adminRouter = createTRPCRouter({
       });
     }
 
-    return {
-      agencies: response.agencies,
-    };
+    return response.agencies;
   }),
   agency: publicProcedure
     .input(z.object({ slug: z.string().trim().toLowerCase() }))

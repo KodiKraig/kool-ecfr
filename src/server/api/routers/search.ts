@@ -7,7 +7,7 @@ const SearchParams = z.object({
 });
 
 export const searchRouter = createTRPCRouter({
-  countHierarchy: publicProcedure
+  countsHierarchy: publicProcedure
     .input(SearchParams)
     .query(async ({ ctx, input }) => {
       return ctx.ecfr.search.countsHierarchy(input);
