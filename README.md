@@ -6,18 +6,20 @@ _This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t
 
 ## Metrics Included
 
-- Number of CFR references per agency
-- Number of historical changes per agency
+- Reference locations for the agency in the CFR
+- Chart view of the agency's regulation changes over time
+- Total, Average, Maximum, and number of days with changes for the agency
+- Hierarchical view of the agency's regulation changes with total counts for each title and chapter
 
 ## Running the project
 
 1. Clone the repository
 
 ```bash
-git clone https://github.com/kool-ecfr/kool-ecfr.git
+git clone https://github.com/KodiKraig/kool-ecfr.git
 ```
 
-2. Copy the `.env.example` file to `.env` and set the `ECFR_BASE_URL` environment variable
+2. Copy the `.env.example` file to `.env`
 
 ```bash
 cp .env.example .env

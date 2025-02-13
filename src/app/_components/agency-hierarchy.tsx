@@ -11,7 +11,7 @@ type CountsHierarchy =
   AppRouterOutput["search"]["countsHierarchy"]["children"][number];
 
 const generateKey = (child: CountsHierarchy) => {
-  // This might not be the best key, but it's better than using the index
+  // This might not be the best key, but it's better than using the index for this large of a dataset
   return `${child.structure_index}-${child.hierarchy_heading}-${child.heading}-${child.count}-${child.max_score}`;
 };
 
