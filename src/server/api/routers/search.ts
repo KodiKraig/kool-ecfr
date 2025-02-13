@@ -20,6 +20,7 @@ export const searchRouter = createTRPCRouter({
       const mapped = Object.entries(response.dates)
         .map(([date, count]) => ({
           date: new Date(date),
+          formattedDate: date,
           count,
         }))
         .sort((a, b) => a.date.getTime() - b.date.getTime());

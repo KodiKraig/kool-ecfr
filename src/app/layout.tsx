@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
-          <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
+          <main className="flex min-h-screen flex-col items-center bg-gradient-to-b from-[#1c3e75] to-[#0b1c38] text-white">
             {children}
           </main>
         </TRPCReactProvider>

@@ -4,6 +4,7 @@ import { api } from "@/trpc/server";
 import roundedNumber from "@/utils/roundedNumber";
 import { type Metadata } from "next";
 import { Suspense } from "react";
+import { ChangeLogAreaChart } from "@/app/_components/area-chart";
 
 export const metadata: Metadata = {
   title: "Agency Metrics",
@@ -67,23 +68,29 @@ const Changelog = async ({ slug }: { slug: string }) => {
     });
 
   return (
-    <div className="flex flex-wrap gap-4">
-      <MetricCard
-        label="Total Changes"
-        value={roundedNumber(totalChanges, ",.0f")}
-      />
-      <MetricCard
-        label="Average Changes"
-        value={roundedNumber(avgChanges, ",.2f")}
-      />
-      <MetricCard
-        label="Maximum Changes"
-        value={roundedNumber(maxChanges, ",.0f")}
-      />
-      <MetricCard
-        label="Days with Changes"
-        value={roundedNumber(changelog.length, ",.0f")}
-      />
+    <div className="flex flex-col gap-8">
+      <div className="h-[400px] w-full">
+        <ChangeLogAreaChart data={changelog} />
+      </div>
+
+      <div className="flex flex-wrap gap-4">
+        <MetricCard
+          label="Total Changes"
+          value={roundedNumber(totalChanges, ",.0f")}
+        />
+        <MetricCard
+          label="Average Changes"
+          value={roundedNumber(avgChanges, ",.2f")}
+        />
+        <MetricCard
+          label="Maximum Changes"
+          value={roundedNumber(maxChanges, ",.0f")}
+        />
+        <MetricCard
+          label="Days with Changes"
+          value={roundedNumber(changelog.length, ",.0f")}
+        />
+      </div>
     </div>
   );
 };
