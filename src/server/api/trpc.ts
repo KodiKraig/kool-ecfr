@@ -27,7 +27,7 @@ import ecfrApi from "@/server/lib/ecfr";
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     ...opts,
-    ecfrApi,
+    ecfr: ecfrApi,
   };
 };
 

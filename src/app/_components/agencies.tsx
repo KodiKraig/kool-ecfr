@@ -3,11 +3,19 @@
 import { type Agency } from "@/server/lib/ecfr/admin";
 import { ArrowTurnDownRight } from "@/app/_icons/arrow-turn-down-right";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Agency = ({ agency }: { agency: Agency }) => {
+  const router = useRouter();
+
   return (
     <div>
-      <button className="flex w-full items-center justify-between text-wrap rounded-lg p-2 text-start font-semibold transition-all hover:bg-gray-700 hover:text-gray-200">
+      <button
+        className="flex w-full items-center justify-between text-wrap rounded-lg p-2 text-start font-semibold transition-all hover:bg-gray-700 hover:text-gray-200"
+        onClick={() => {
+          router.push(`/agency/${agency.slug}/metrics`);
+        }}
+      >
         <p>{agency.name}</p>
         <p className="pr-2 text-sm text-gray-300">
           {agency.cfr_references.length}
