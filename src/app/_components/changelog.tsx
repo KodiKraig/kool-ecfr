@@ -2,7 +2,7 @@
 
 import roundedNumber from "@/utils/roundedNumber";
 import { ChangeLogAreaChart } from "@/app/_components/area-chart";
-import { Card } from "@/app/_components/card";
+import { Card, CardSkeleton } from "@/app/_components/card";
 import { Section } from "@/app/_components/section";
 import { api } from "@/trpc/react";
 
@@ -22,12 +22,13 @@ const MetricCard = ({
   );
 };
 
-export const Changelog = ({ slug }: { slug: string }) => {
-  const [{ changelog, totalChanges, avgChanges, maxChanges }] =
-    api.search.countsDaily.useSuspenseQuery({
-      agencySlugs: [slug],
-    });
-
+const ChangelogContainer = ({
+  chart,
+  metrics,
+}: {
+  chart: React.ReactNode;
+  metrics: React.ReactNode;
+}) => {
   return (
     <Section
       heading={{
@@ -37,11 +38,43 @@ export const Changelog = ({ slug }: { slug: string }) => {
       }}
     >
       <div className="flex flex-col gap-8">
-        <div className="h-[400px] w-full">
-          <ChangeLogAreaChart data={changelog} />
-        </div>
+        <div className="h-[400px] w-full">{chart}</div>
 
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-4">{metrics}</div>
+      </div>
+    </Section>
+  );
+};
+
+export const ChangelogSkeleton = () => {
+  return (
+    <ChangelogContainer
+      chart={
+        <div className="bg-darkBlue h-full w-full animate-pulse rounded-lg" />
+      }
+      metrics={
+        <>
+          <CardSkeleton size="lg" />
+          <CardSkeleton size="lg" />
+          <CardSkeleton size="lg" />
+          <CardSkeleton size="lg" />
+        </>
+      }
+    />
+  );
+};
+
+export const Changelog = ({ slug }: { slug: string }) => {
+  const [{ changelog, totalChanges, avgChanges, maxChanges }] =
+    api.search.countsDaily.useSuspenseQuery({
+      agencySlugs: [slug],
+    });
+
+  return (
+    <ChangelogContainer
+      chart={<ChangeLogAreaChart data={changelog} />}
+      metrics={
+        <>
           <MetricCard
             label="Total Changes"
             value={roundedNumber(totalChanges, ",.0f")}
@@ -58,8 +91,8 @@ export const Changelog = ({ slug }: { slug: string }) => {
             label="Days with Changes"
             value={roundedNumber(changelog.length, ",.0f")}
           />
-        </div>
-      </div>
-    </Section>
+        </>
+      }
+    />
   );
 };

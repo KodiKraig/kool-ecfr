@@ -2,9 +2,12 @@ import { PageContainer } from "@/app/_components/container";
 import { api, HydrateClient } from "@/trpc/server";
 import { type Metadata } from "next";
 import { Suspense } from "react";
-import { AgencyInfo } from "@/app/_components/agency-info";
-import { Changelog } from "@/app/_components/changelog";
-import { AgencyHierarchy } from "@/app/_components/agency-hierarchy";
+import { AgencyInfo, AgencyInfoSkeleton } from "@/app/_components/agency-info";
+import { Changelog, ChangelogSkeleton } from "@/app/_components/changelog";
+import {
+  AgencyHierarchy,
+  AgencyHierarchySkeleton,
+} from "@/app/_components/agency-hierarchy";
 
 export const metadata: Metadata = {
   title: "Agency Metrics",
@@ -27,15 +30,15 @@ export default async function AgencyMetricsPage({ params }: Props) {
     <HydrateClient>
       <PageContainer>
         <div className="flex flex-col items-center gap-8">
-          <Suspense fallback={<div>Loading agency info...</div>}>
+          <Suspense fallback={<AgencyInfoSkeleton />}>
             <AgencyInfo slug={slug} />
           </Suspense>
 
-          <Suspense fallback={<div>Loading changes...</div>}>
+          <Suspense fallback={<ChangelogSkeleton />}>
             <Changelog slug={slug} />
           </Suspense>
 
-          <Suspense fallback={<div>Loading agency hierarchy...</div>}>
+          <Suspense fallback={<AgencyHierarchySkeleton />}>
             <AgencyHierarchy slug={slug} />
           </Suspense>
         </div>

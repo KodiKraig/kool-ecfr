@@ -91,11 +91,11 @@ const HierarchyChild = ({
   );
 };
 
-export const AgencyHierarchy = ({ slug }: { slug: string }) => {
-  const [{ children }] = api.search.countsHierarchy.useSuspenseQuery({
-    agencySlugs: [slug],
-  });
-
+const AgencyHierarchyContainer = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return (
     <Section
       className="min-h-screen gap-4"
@@ -110,9 +110,37 @@ export const AgencyHierarchy = ({ slug }: { slug: string }) => {
         ),
       }}
     >
+      {children}
+    </Section>
+  );
+};
+
+const PlaceholderText = () => {
+  return <div className="bg-darkBlue h-8 w-full animate-pulse rounded-md" />;
+};
+
+export const AgencyHierarchySkeleton = () => {
+  return (
+    <AgencyHierarchyContainer>
+      <PlaceholderText />
+      <PlaceholderText />
+      <PlaceholderText />
+      <PlaceholderText />
+      <PlaceholderText />
+    </AgencyHierarchyContainer>
+  );
+};
+
+export const AgencyHierarchy = ({ slug }: { slug: string }) => {
+  const [{ children }] = api.search.countsHierarchy.useSuspenseQuery({
+    agencySlugs: [slug],
+  });
+
+  return (
+    <AgencyHierarchyContainer>
       {children.map((child) => (
         <HierarchyChild key={generateKey(child)} child={child} />
       ))}
-    </Section>
+    </AgencyHierarchyContainer>
   );
 };

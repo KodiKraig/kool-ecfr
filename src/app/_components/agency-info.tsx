@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/app/_components/card";
+import { Card, CardSkeleton } from "@/app/_components/card";
 import { Section } from "@/app/_components/section";
 import { type AppRouterOutput } from "@/server/api/root";
 import Link from "next/link";
@@ -37,24 +37,22 @@ const ReferenceCard = ({ reference }: { reference: CFRReference }) => {
   );
 };
 
-export const AgencyInfo = ({ slug }: { slug: string }) => {
-  const [{ agency }] = api.admin.agency.useSuspenseQuery({ slug });
-
-  if (!agency) {
-    return <div>Agency not found</div>;
-  }
-
+const AgencyInfoContainer = ({
+  name,
+  shortName,
+  children,
+}: {
+  name: React.ReactNode;
+  shortName: React.ReactNode;
+  children: React.ReactNode;
+}) => {
   return (
     <>
       <div className="flex flex-col items-center gap-2">
         <Link href={`/`} className="hover:cursor-pointer hover:underline">
-          <h1 className="text-center text-2xl font-bold">
-            {agency.display_name}
-          </h1>
+          <h1 className="text-center text-2xl font-bold">{name}</h1>
         </Link>
-        <h2 className="text-lg font-medium text-gray-300">
-          {agency.short_name}
-        </h2>
+        <h2 className="text-lg font-medium text-gray-300">{shortName}</h2>
       </div>
 
       <Section
@@ -65,14 +63,37 @@ export const AgencyInfo = ({ slug }: { slug: string }) => {
             "The locations in the Code of Federal Regulations where the agency is mentioned.",
         }}
       >
-        <div className="flex flex-wrap gap-2">
-          {agency.cfr_references.map((reference, index) => (
-            <div key={index}>
-              <ReferenceCard reference={reference} />
-            </div>
-          ))}
-        </div>
+        <div className="flex flex-wrap gap-2">{children}</div>
       </Section>
     </>
+  );
+};
+
+export const AgencyInfoSkeleton = () => {
+  return (
+    <AgencyInfoContainer
+      name={<p className="animate-pulse">___</p>}
+      shortName={<p className="animate-pulse">___</p>}
+    >
+      <CardSkeleton />
+      <CardSkeleton />
+      <CardSkeleton />
+    </AgencyInfoContainer>
+  );
+};
+
+export const AgencyInfo = ({ slug }: { slug: string }) => {
+  const [{ agency }] = api.admin.agency.useSuspenseQuery({ slug });
+
+  if (!agency) {
+    return <div>Agency not found</div>;
+  }
+
+  return (
+    <AgencyInfoContainer name={agency.name} shortName={agency.short_name}>
+      {agency.cfr_references.map((reference, index) => (
+        <ReferenceCard key={index} reference={reference} />
+      ))}
+    </AgencyInfoContainer>
   );
 };
