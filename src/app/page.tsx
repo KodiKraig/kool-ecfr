@@ -4,7 +4,7 @@ import { api } from "@/trpc/server";
 import { Suspense } from "react";
 
 const Agencies = async () => {
-  const { agencies } = await api.admin.agencies();
+  const agencies = await api.admin.agencies();
 
   return <AgencyList agencies={agencies} />;
 };
