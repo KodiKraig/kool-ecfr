@@ -18,7 +18,9 @@ export default function Home() {
           <h2 className="text-gray-200">Select an agency to view metrics</h2>
         </div>
 
-        <Suspense fallback={<div>Loading agencies...</div>}>
+        <Suspense
+          fallback={<div className="self-center">Loading agencies...</div>}
+        >
           <AgencyList />
         </Suspense>
       </PageContainer>

@@ -46,7 +46,7 @@ export const AgencyInfo = ({ slug }: { slug: string }) => {
 
   return (
     <>
-      <div className="flex max-w-2xl flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-2">
         <Link href={`/`} className="hover:cursor-pointer hover:underline">
           <h1 className="text-center text-2xl font-bold">
             {agency.display_name}
@@ -58,6 +58,7 @@ export const AgencyInfo = ({ slug }: { slug: string }) => {
       </div>
 
       <Section
+        className="w-fit"
         heading={{
           title: "References",
           subtitle:
