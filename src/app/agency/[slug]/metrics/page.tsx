@@ -73,15 +73,15 @@ const Changelog = async ({ slug }: { slug: string }) => {
         value={roundedNumber(totalChanges, ",.0f")}
       />
       <MetricCard
-        label="Avg Changes"
+        label="Average Changes"
         value={roundedNumber(avgChanges, ",.2f")}
       />
       <MetricCard
-        label="Max Changes"
+        label="Maximum Changes"
         value={roundedNumber(maxChanges, ",.0f")}
       />
       <MetricCard
-        label="Number of Days"
+        label="Days with Changes"
         value={roundedNumber(changelog.length, ",.0f")}
       />
     </div>
