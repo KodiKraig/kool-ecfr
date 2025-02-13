@@ -5,14 +5,24 @@ import { ChevronLeft } from "@/app/_icons/chevron-left";
 import { type AppRouterOutput } from "@/server/api/root";
 import { api } from "@/trpc/react";
 import roundedNumber from "@/utils/roundedNumber";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
+
 type CountsHierarchy =
   AppRouterOutput["search"]["countsHierarchy"]["children"][number];
 
 const generateKey = (child: CountsHierarchy) => {
   // This might not be the best key, but it's better than using the index for this large of a dataset
   return `${child.structure_index}-${child.hierarchy_heading}-${child.heading}-${child.count}-${child.max_score}`;
+};
+
+const containsValidChildren = (children: CountsHierarchy[]) => {
+  return (
+    children &&
+    children.length > 0 &&
+    children[0]?.level !== "subject_group" &&
+    children[0]?.level !== "subpart"
+  );
 };
 
 const HierarchyChild = ({
@@ -22,15 +32,18 @@ const HierarchyChild = ({
   child: CountsHierarchy;
   expanded?: boolean;
 }) => {
-  const [isOpen, setIsOpen] = useState(expanded);
-  const [expandDeep, setExpandDeep] = useState(expanded);
+  const isDisabled = useMemo(
+    () => !containsValidChildren(child.children),
+    [child.children],
+  );
+
+  const [isOpen, setIsOpen] = useState(expanded && !isDisabled);
+  const [expandDeep, setExpandDeep] = useState(expanded && !isDisabled);
 
   const chevronClassName = twMerge(
     "transition-transform duration-300",
     isOpen ? "rotate-[270deg]" : "rotate-180",
   );
-
-  const isDisabled = !child.children || child.children.length === 0;
 
   const handleClick = (event: React.MouseEvent) => {
     if (event.shiftKey) {
@@ -54,7 +67,7 @@ const HierarchyChild = ({
           </div>
         )}
 
-        <p className="font-medium">
+        <p className="text-left font-medium">
           {child.hierarchy_heading ?? child.level}
           {child.heading && <span> - {child.heading}</span>}
           {" - "}
