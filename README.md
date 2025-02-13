@@ -1,6 +1,6 @@
 # Kool eCFR - Code of Federal Regulations
 
-A simple tool to help you view metrics for any agency in the Code of Federal Regulations (CFR).
+A simple tool to help you view metrics for any agency in the [Code of Federal Regulations (eCFR)](https://www.ecfr.gov/).
 
 _This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`._
 
