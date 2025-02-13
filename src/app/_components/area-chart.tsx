@@ -81,11 +81,11 @@ export const AreaChart = ({
           top: 10,
           right: 0,
           left: 0,
-          bottom: -10,
+          bottom: 0,
         }}
       >
         <defs>
-          <linearGradient id="balanceGradient" x1="2" y1="2" x2="0" y2="0">
+          <linearGradient id="areaGradient" x1="2" y1="2" x2="0" y2="0">
             <stop offset="40%" stopColor="#3417ff" stopOpacity={0.7} />
             <stop offset="99%" stopColor="#1a0e6e" stopOpacity={0.7} />
           </linearGradient>
@@ -96,7 +96,7 @@ export const AreaChart = ({
           strokeOpacity={0.7}
           strokeLinecap="butt"
         />
-        <XAxis dataKey={xAxisDataKey} tickLine={false} />
+        <XAxis dataKey={xAxisDataKey} tickLine={false} tick={{ dy: 5 }} />
         <YAxis
           domain={domain}
           tick={{ fontWeight: "600", fill: "#999999" }}
@@ -106,7 +106,7 @@ export const AreaChart = ({
           type="monotone"
           dataKey={dataKey}
           stroke="#035fff"
-          fill="url(#balanceGradient)"
+          fill="url(#areaGradient)"
           strokeWidth={2}
           isAnimationActive={isAnimationActive ?? true}
         />
