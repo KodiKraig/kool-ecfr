@@ -96,7 +96,11 @@ export const AreaChart = ({
           strokeOpacity={0.7}
           strokeLinecap="butt"
         />
-        <XAxis dataKey={xAxisDataKey} tickLine={false} tick={{ dy: 5 }} />
+        <XAxis
+          dataKey={xAxisDataKey}
+          tickLine={false}
+          tick={{ dy: 5, fill: "#999999" }}
+        />
         <YAxis
           domain={domain}
           tick={{ fontWeight: "600", fill: "#999999" }}
