@@ -15,8 +15,15 @@ const generateKey = (child: CountsHierarchy) => {
   return `${child.structure_index}-${child.hierarchy_heading}-${child.heading}-${child.count}-${child.max_score}`;
 };
 
-const HierarchyChild = ({ child }: { child: CountsHierarchy }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const HierarchyChild = ({
+  child,
+  expanded = false,
+}: {
+  child: CountsHierarchy;
+  expanded?: boolean;
+}) => {
+  const [isOpen, setIsOpen] = useState(expanded);
+  const [expandDeep, setExpandDeep] = useState(expanded);
 
   const chevronClassName = twMerge(
     "transition-transform duration-300",
@@ -25,10 +32,19 @@ const HierarchyChild = ({ child }: { child: CountsHierarchy }) => {
 
   const isDisabled = !child.children || child.children.length === 0;
 
+  const handleClick = (event: React.MouseEvent) => {
+    if (event.shiftKey) {
+      setExpandDeep(true);
+    } else {
+      setExpandDeep(false);
+    }
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="hover:text-gray-200">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleClick}
         className="flex items-center hover:cursor-pointer hover:text-gray-300 hover:underline"
         disabled={isDisabled}
       >
@@ -50,7 +66,11 @@ const HierarchyChild = ({ child }: { child: CountsHierarchy }) => {
       {isOpen && (
         <div className="pl-4">
           {child.children?.map((child) => (
-            <HierarchyChild key={generateKey(child)} child={child} />
+            <HierarchyChild
+              key={generateKey(child)}
+              child={child}
+              expanded={expandDeep}
+            />
           ))}
         </div>
       )}
@@ -69,7 +89,12 @@ export const AgencyHierarchy = ({ slug }: { slug: string }) => {
       heading={{
         title: "Hierarchy",
         subtitle:
-          "A hierarchical view of the agency's regulation changes with word counts within each title and chapter.",
+          "A hierarchical view of the agency's regulation changes with total counts for each title and chapter.",
+        rightContent: (
+          <p className="text-nowrap text-sm text-gray-500">
+            shift + click to expand
+          </p>
+        ),
       }}
     >
       {children.map((child) => (
