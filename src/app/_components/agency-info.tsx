@@ -60,7 +60,7 @@ const AgencyInfoContainer = ({
         heading={{
           title: "References",
           subtitle:
-            "The locations in the Code of Federal Regulations where the agency is mentioned.",
+            "Locations in the Code of Federal Regulations where the agency is mentioned.",
         }}
       >
         <div className="flex flex-wrap gap-2">{children}</div>

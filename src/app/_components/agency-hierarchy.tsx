@@ -102,7 +102,7 @@ const AgencyHierarchyContainer = ({
       heading={{
         title: "Hierarchy",
         subtitle:
-          "A hierarchical view of the agency's regulation changes with total counts for each title and chapter.",
+          "Hierarchical view of the agency's regulation changes with total counts for each title and chapter.",
         rightContent: (
           <p className="text-nowrap text-sm text-gray-500">
             shift + click to expand

@@ -34,7 +34,7 @@ const ChangelogContainer = ({
       heading={{
         title: "Changelog",
         subtitle:
-          "The history of changes to the Code of Federal Regulations for the agency.",
+          "Historical changes to the Code of Federal Regulations for the agency.",
       }}
     >
       <div className="flex flex-col gap-8">
