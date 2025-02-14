@@ -10,7 +10,7 @@ export const Card = ({
   return (
     <div
       className={twMerge(
-        "bg-darkBlue flex flex-col items-center gap-2 rounded-lg p-4",
+        "flex flex-col items-center gap-2 rounded-lg bg-darkBlue p-4",
         className,
       )}
     >
@@ -30,6 +30,41 @@ export const CardSkeleton = ({ size = "sm" }: { size?: CardSkeletonSize }) => {
   return (
     <Card className="animate-pulse">
       <div className={className} />
+    </Card>
+  );
+};
+
+// Containers
+
+export const CardContainer = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div className={twMerge("flex flex-wrap justify-center gap-4", className)}>
+      {children}
+    </div>
+  );
+};
+
+// Custom Cards
+
+export const MetricCard = ({
+  label,
+  value,
+  className,
+}: {
+  label: string;
+  value: string;
+  className?: string;
+}) => {
+  return (
+    <Card className={className}>
+      <p className="text-md font-medium md:text-lg">{label}</p>
+      <p className="text-lg font-bold md:text-2xl">{value}</p>
     </Card>
   );
 };

@@ -1,9 +1,6 @@
 "use client";
 
-import { Input } from "@/app/_components/input";
 import { api } from "@/trpc/react";
-import { useState } from "react";
-import { useDebounce } from "@uidotdev/usehooks";
 import { type AppRouterOutput } from "@/server/api/root";
 import { twMerge } from "tailwind-merge";
 import roundedNumber from "@/utils/roundedNumber";
@@ -79,7 +76,13 @@ const SearchResult = ({ result }: { result: SearchResultType }) => {
   );
 };
 
-const SearchResultsSection = ({ query }: { query: string }) => {
+export const SearchResultsSection = ({
+  query,
+  enabled,
+}: {
+  query: string;
+  enabled: boolean;
+}) => {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     api.search.results.useInfiniteQuery(
       {
@@ -87,7 +90,7 @@ const SearchResultsSection = ({ query }: { query: string }) => {
       },
       {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
-        enabled: query.length > 0,
+        enabled,
       },
     );
 
@@ -99,7 +102,7 @@ const SearchResultsSection = ({ query }: { query: string }) => {
         title: "Search Results",
         subtitle:
           data?.pages[0]?.meta.description ??
-          "References found in the CFR for the query will be shown below.",
+          "Locations within the CFR that match the query will be shown below.",
       }}
     >
       {isLoading && <LoadingText>Fetching results...</LoadingText>}
@@ -147,31 +150,10 @@ const SearchResultsSection = ({ query }: { query: string }) => {
       ) : (
         <>
           {!isLoading && (
-            <EmptyText className="py-32">
-              Enter a search query to see results
-            </EmptyText>
+            <EmptyText className="py-32">Enter a search query</EmptyText>
           )}
         </>
       )}
     </Section>
   );
 };
-
-export function SearchResults() {
-  const [search, setSearch] = useState("");
-  const debouncedSearch = useDebounce(search.trim(), 500);
-
-  return (
-    <div className="flex flex-col items-center gap-4">
-      <Input
-        type="text"
-        placeholder="Searches headings and the full text"
-        className="md:w-96"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      <SearchResultsSection query={debouncedSearch} />
-    </div>
-  );
-}

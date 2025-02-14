@@ -87,6 +87,10 @@ type SearchResultsResponse = {
   };
 };
 
+type SearchCountsTitlesResponse = {
+  titles: Record<string, number>;
+};
+
 export class SearchApi {
   private api: ApisauceInstance;
 
@@ -106,6 +110,12 @@ export class SearchApi {
 
   async countsDaily(params?: SearchParams): Promise<CountsDailyResponse> {
     return this.get("/search/v1/counts/daily", this.buildParams(params));
+  }
+
+  async countsTitles(
+    params?: SearchParams,
+  ): Promise<SearchCountsTitlesResponse> {
+    return this.get("/search/v1/counts/titles", this.buildParams(params));
   }
 
   private async get<T>(path: string, params?: URLSearchParams): Promise<T> {

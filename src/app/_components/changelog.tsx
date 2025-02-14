@@ -2,25 +2,14 @@
 
 import roundedNumber from "@/utils/roundedNumber";
 import { ChangeLogAreaChart } from "@/app/_components/area-chart";
-import { Card, CardSkeleton } from "@/app/_components/card";
+import {
+  MetricCard,
+  CardSkeleton,
+  CardContainer,
+} from "@/app/_components/card";
 import { Section } from "@/app/_components/section";
 import { api } from "@/trpc/react";
-
-const MetricCard = ({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-  subLabel?: string;
-}) => {
-  return (
-    <Card>
-      <p className="text-md font-medium md:text-lg">{label}</p>
-      <p className="text-lg font-bold md:text-2xl">{value}</p>
-    </Card>
-  );
-};
+import { ChartSkeleton } from "@/app/_components/chart";
 
 const ChangelogContainer = ({
   chart,
@@ -40,7 +29,7 @@ const ChangelogContainer = ({
       <div className="flex flex-col gap-8">
         <div className="h-[400px] w-full">{chart}</div>
 
-        <div className="flex flex-wrap justify-center gap-4">{metrics}</div>
+        <CardContainer>{metrics}</CardContainer>
       </div>
     </Section>
   );
@@ -49,9 +38,7 @@ const ChangelogContainer = ({
 export const ChangelogSkeleton = () => {
   return (
     <ChangelogContainer
-      chart={
-        <div className="bg-darkBlue h-full w-full animate-pulse rounded-lg" />
-      }
+      chart={<ChartSkeleton isLoading />}
       metrics={
         <>
           <CardSkeleton size="lg" />

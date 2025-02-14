@@ -42,6 +42,36 @@ export const searchRouter = createTRPCRouter({
         maxChanges,
       };
     }),
+  countsTitles: publicProcedure
+    .input(SearchParams)
+    .query(async ({ ctx, input }) => {
+      const result = await ctx.ecfr.search.countsTitles({
+        ...input,
+        date: SEARCH_DATE,
+      });
+
+      const mapped = Object.entries(result.titles).map(([title, count]) => ({
+        title,
+        count,
+      }));
+
+      const totalOccurrences = mapped.reduce(
+        (acc, curr) => acc + curr.count,
+        0,
+      );
+
+      const avgOccurrences = totalOccurrences / mapped.length;
+
+      const maxOccurrences = Math.max(...mapped.map((item) => item.count));
+
+      return {
+        titles: mapped,
+        totalOccurrences,
+        avgOccurrences,
+        maxOccurrences,
+        totalTitles: mapped.length,
+      };
+    }),
   results: publicProcedure
     .input(
       z.object({

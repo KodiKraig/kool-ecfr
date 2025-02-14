@@ -1,6 +1,21 @@
 import { type InputHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
+type InputLabelProps = InputHTMLAttributes<HTMLInputElement> & {
+  label: React.ReactNode;
+};
+
+export const InputLabel = (props: InputLabelProps) => {
+  const { label, ...rest } = props;
+
+  return (
+    <div className="flex w-full flex-col gap-2">
+      <label className="text-sm font-medium">{label}</label>
+      <Input {...rest} />
+    </div>
+  );
+};
+
 export const Input = (props: InputHTMLAttributes<HTMLInputElement>) => {
   const { className, ...rest } = props;
 
