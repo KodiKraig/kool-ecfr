@@ -66,7 +66,7 @@ export class SearchApi {
     return response.data as T;
   }
 
-  private buildParams(params?: SearchParams): URLSearchParams | undefined {
+  buildParams(params?: SearchParams): URLSearchParams | undefined {
     const queryParams = new URLSearchParams();
 
     if (params?.query) {
