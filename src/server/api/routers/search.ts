@@ -38,4 +38,15 @@ export const searchRouter = createTRPCRouter({
         maxChanges,
       };
     }),
+  results: publicProcedure
+    .input(
+      z.object({
+        ...SearchParams.shape,
+        page: z.number().optional(),
+        perPage: z.number().optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      return ctx.ecfr.search.results(input);
+    }),
 });

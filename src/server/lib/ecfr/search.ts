@@ -11,6 +11,25 @@ type SearchParams = {
   lastModifiedOnOrBefore?: Date;
 };
 
+type Order =
+  | "citations"
+  | "relevance"
+  | "hierarchy"
+  | "newest_first"
+  | "oldest_first"
+  | "suggestions";
+
+type PaginateBy = "results" | "date";
+
+type PaginatedParams = {
+  perPage?: number;
+  page?: number;
+  order?: Order;
+  paginateBy?: PaginateBy;
+};
+
+type SearchResultsParams = SearchParams & PaginatedParams;
+
 type CountsHierarchyResponse = {
   count: {
     value: number;
@@ -35,6 +54,38 @@ type CountsDailyResponse = {
   dates: Record<string, number>;
 };
 
+type SearchResultHeadings = {
+  title: string | null;
+  subtitle: string | null;
+  chapter: string | null;
+  subchapter: string | null;
+  part: string | null;
+  subpart: string | null;
+  subject_group: string | null;
+  section: string | null;
+  appendix: string | null;
+};
+
+type SearchResult = {
+  starts_on: string;
+  ends_on: string | null;
+  type: string;
+  hierarchy_headings: SearchResultHeadings;
+  headings: SearchResultHeadings;
+  full_text_excerpt: string | null;
+};
+
+type SearchResultsResponse = {
+  results: SearchResult[];
+  meta: {
+    current_page: number;
+    total_pages: number;
+    total_count: number;
+    max_score: number | null;
+    description: string;
+  };
+};
+
 export class SearchApi {
   private api: ApisauceInstance;
 
@@ -42,24 +93,27 @@ export class SearchApi {
     this.api = api;
   }
 
+  async results(params?: SearchResultsParams): Promise<SearchResultsResponse> {
+    return this.get("/search/v1/results", this.buildPaginatedParams(params));
+  }
+
   async countsHierarchy(
     params?: SearchParams,
   ): Promise<CountsHierarchyResponse> {
-    return this.get("/search/v1/counts/hierarchy", params);
+    return this.get("/search/v1/counts/hierarchy", this.buildParams(params));
   }
 
   async countsDaily(params?: SearchParams): Promise<CountsDailyResponse> {
-    return this.get("/search/v1/counts/daily", params);
+    return this.get("/search/v1/counts/daily", this.buildParams(params));
   }
 
-  private async get<T>(path: string, params?: SearchParams): Promise<T> {
-    const _params = this.buildParams(params);
-
-    const _path = _params ? `${path}?${this.buildParams(params)}` : path;
+  private async get<T>(path: string, params?: URLSearchParams): Promise<T> {
+    const _path = params ? `${path}?${params}` : path;
 
     const response = await this.api.get(_path);
 
     if (!response.ok) {
+      console.error(response.originalError);
       throw new Error(response.problem);
     }
 
@@ -112,5 +166,19 @@ export class SearchApi {
     }
 
     return queryParams.size > 0 ? queryParams : undefined;
+  }
+
+  buildPaginatedParams(params?: SearchResultsParams): URLSearchParams {
+    const queryParams = this.buildParams(params) ?? new URLSearchParams();
+
+    queryParams.set("per_page", params?.perPage?.toString() ?? "20");
+
+    queryParams.set("page", params?.page?.toString() ?? "1");
+
+    queryParams.set("order", params?.order ?? "relevance");
+
+    queryParams.set("paginate_by", params?.paginateBy ?? "results");
+
+    return queryParams;
   }
 }
