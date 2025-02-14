@@ -6,6 +6,10 @@ const SearchParams = z.object({
   agencySlugs: z.array(z.string().trim()).optional(),
 });
 
+// This should probably be set in the frontend or dynamically set based on current date.
+// Leaving this for now as I am not sure how to get the most recent valid date for the eCFR.
+const SEARCH_DATE = new Date("2025-02-07");
+
 export const searchRouter = createTRPCRouter({
   countsHierarchy: publicProcedure
     .input(SearchParams)
@@ -42,11 +46,29 @@ export const searchRouter = createTRPCRouter({
     .input(
       z.object({
         ...SearchParams.shape,
-        page: z.number().optional(),
-        perPage: z.number().optional(),
+        cursor: z.number().optional().default(1),
+        limit: z.number().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
-      return ctx.ecfr.search.results(input);
+      const { cursor, limit, ...rest } = input;
+
+      const results = await ctx.ecfr.search.results({
+        ...rest,
+        page: cursor,
+        perPage: limit,
+        date: SEARCH_DATE,
+      });
+
+      const nextCursor =
+        results.meta.current_page < results.meta.total_pages &&
+        results.meta.total_pages > 0
+          ? results.meta.current_page + 1
+          : null;
+
+      return {
+        ...results,
+        nextCursor,
+      };
     }),
 });

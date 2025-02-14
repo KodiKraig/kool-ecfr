@@ -73,6 +73,7 @@ type SearchResult = {
   hierarchy_headings: SearchResultHeadings;
   headings: SearchResultHeadings;
   full_text_excerpt: string | null;
+  structure_index: string;
 };
 
 type SearchResultsResponse = {

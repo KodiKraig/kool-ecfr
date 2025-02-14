@@ -5,13 +5,16 @@ import { ArrowTurnDownRight } from "@/app/_icons/arrow-turn-down-right";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
+import { Input } from "@/app/_components/input";
+import { Button } from "@/app/_components/button";
 
 const Agency = ({ agency }: { agency: Agency }) => {
   const router = useRouter();
 
   return (
     <div>
-      <button
+      <Button
+        variant="naked"
         className="flex w-full items-center justify-between gap-4 text-wrap rounded-lg p-2 text-start font-semibold transition-all hover:bg-gray-700 hover:text-gray-200"
         onClick={() => {
           router.push(`/agency/${agency.slug}/metrics`);
@@ -21,7 +24,7 @@ const Agency = ({ agency }: { agency: Agency }) => {
         <p className="pr-2 text-sm text-gray-300">
           {agency.cfr_references.length}
         </p>
-      </button>
+      </Button>
       {agency.children && agency.children.length > 0 && (
         <div className="flex pl-1">
           <div className="pl-2 pt-1">
@@ -86,12 +89,12 @@ export const AgencyList = () => {
 
   return (
     <div className="flex w-full flex-col items-center">
-      <input
+      <Input
         type="text"
         value={filter}
         onChange={(e) => handleFilterTextChange(e.target.value)}
         placeholder="Search for an agency"
-        className="rounded-md bg-gray-600 p-2 focus:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700 md:w-96"
+        className="md:w-96"
       />
 
       <p className="py-2 text-sm text-gray-400">{totalCount} agencies found</p>

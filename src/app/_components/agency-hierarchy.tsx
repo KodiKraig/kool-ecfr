@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/app/_components/button";
 import { Section } from "@/app/_components/section";
 import { ChevronLeft } from "@/app/_icons/chevron-left";
 import { type AppRouterOutput } from "@/server/api/root";
@@ -56,9 +57,10 @@ const HierarchyChild = ({
 
   return (
     <div className="hover:text-gray-200">
-      <button
+      <Button
+        variant="flat"
         onClick={handleClick}
-        className="flex items-center hover:cursor-pointer hover:text-gray-300 hover:underline"
+        className="flex items-center py-0 disabled:cursor-default"
         disabled={isDisabled}
       >
         {!isDisabled && (
@@ -75,7 +77,7 @@ const HierarchyChild = ({
             {roundedNumber(child.count, ",")}
           </span>
         </p>
-      </button>
+      </Button>
       {isOpen && (
         <div className="pl-4">
           {child.children?.map((child) => (
