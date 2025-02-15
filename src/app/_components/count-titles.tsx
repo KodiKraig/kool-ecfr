@@ -8,6 +8,7 @@ import { Section } from "@/app/_components/section";
 import { api } from "@/trpc/react";
 import roundedNumber from "@/utils/roundedNumber";
 import clsx from "clsx";
+import { useEffect } from "react";
 
 const Cards = ({
   totalTitles,
@@ -54,15 +55,21 @@ export const CountTitlesSection = ({
   query,
   agencySearchSlugs,
   enabled,
+  onLoadingChange,
 }: {
   query: string;
   agencySearchSlugs: string[];
   enabled: boolean;
+  onLoadingChange?: (isLoading: boolean) => void;
 }) => {
   const { data, isLoading } = api.search.countsTitles.useQuery(
     { query, agencySlugs: agencySearchSlugs },
     { enabled },
   );
+
+  useEffect(() => {
+    onLoadingChange?.(isLoading);
+  }, [isLoading, onLoadingChange]);
 
   return (
     <Section
