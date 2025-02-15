@@ -20,7 +20,7 @@ const Agency = ({ agency }: { agency: Agency }) => {
           router.push(`/agency/${agency.slug}/metrics`);
         }}
       >
-        <p className="max-w-[600px] text-wrap">{agency.display_name}</p>
+        <p className="max-w-3xl text-wrap">{agency.display_name}</p>
         <p className="pr-2 text-sm text-gray-300">
           {agency.cfr_references.length}
         </p>
@@ -89,17 +89,21 @@ export const AgencyList = () => {
 
   return (
     <div className="flex w-full flex-col items-center">
-      <Input
-        type="text"
-        value={filter}
-        onChange={(e) => handleFilterTextChange(e.target.value)}
-        placeholder="Search for an agency"
-        className="md:w-96"
-      />
+      <div className="bg-background sticky top-0 flex w-full flex-col items-center gap-2 py-4">
+        <Input
+          type="text"
+          value={filter}
+          onChange={(e) => handleFilterTextChange(e.target.value)}
+          placeholder="Search for an agency"
+          className="md:w-96"
+        />
 
-      <p className="py-2 text-sm text-gray-400">{totalCount} agencies found</p>
+        <p className="py-2 text-sm text-gray-400">
+          {totalCount} agencies found
+        </p>
+      </div>
 
-      <div className="flex max-h-[60vh] flex-col overflow-y-auto border-b border-t border-gray-600 py-2">
+      <div className="flex flex-col py-2">
         {filteredAgencies.length === 0 && (
           <div className="p-2">No agencies found</div>
         )}

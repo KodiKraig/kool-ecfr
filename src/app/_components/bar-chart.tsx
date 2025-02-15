@@ -1,6 +1,6 @@
 "use client";
 
-import { TooltipContainer } from "@/app/_components/chart";
+import { TooltipContainer, TooltipValueTitle } from "@/app/_components/chart";
 import { type AppRouterOutput } from "@/server/api/root";
 import roundedNumber from "@/utils/roundedNumber";
 import {
@@ -50,7 +50,7 @@ export const SingleBarChart = ({
           </linearGradient>
         </defs>
         <Tooltip
-          cursor={{ fill: "#444444" }}
+          cursor={{ fill: "#0f264d" }}
           content={<TitleOccurrencesBarChartTooltip />}
         />
         <CartesianGrid
@@ -65,7 +65,7 @@ export const SingleBarChart = ({
           tick={{ dy: 5, fill: "#999999" }}
         />
         <YAxis tick={{ fontWeight: "600", fill: "#999999" }} tickLine={false} />
-        <Bar dataKey={dataKey} fill="url(#barGradient)" maxBarSize={50} />
+        <Bar dataKey={dataKey} fill="url(#barGradient)" maxBarSize={200} />
         {children}
       </ReBarChart>
     </ResponsiveContainer>
@@ -82,10 +82,11 @@ const TitleOccurrencesBarChartTooltip = ({
 
     return (
       <TooltipContainer>
-        <div className="font-semibold">
-          {roundedNumber(count ?? 0, ",.0f")} Occurrences
-        </div>
-        <p>Title {label}</p>
+        <TooltipValueTitle
+          value={roundedNumber(count ?? 0, ",.0f")}
+          title="Occurrences"
+        />
+        <p className="font-semibold">Title {label}</p>
       </TooltipContainer>
     );
   }

@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
-          <main className="from-lightBlue to-darkBlue flex min-h-screen flex-col items-center bg-gradient-to-b text-white">
+          <main className="bg-background flex min-h-screen flex-col items-center text-white">
             {children}
           </main>
         </TRPCReactProvider>

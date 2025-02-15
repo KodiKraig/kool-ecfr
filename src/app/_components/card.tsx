@@ -10,7 +10,7 @@ export const Card = ({
   return (
     <div
       className={twMerge(
-        "flex flex-col items-center gap-2 rounded-lg bg-darkBlue p-4",
+        "bg-primary/30 flex flex-col items-center gap-2 rounded-lg p-4",
         className,
       )}
     >

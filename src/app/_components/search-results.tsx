@@ -58,18 +58,19 @@ const generateKey = ({
 const SearchResult = ({ result }: { result: SearchResultType }) => {
   return (
     <div className="flex flex-col">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <HierarchyText
           value={result.hierarchy_headings.section}
           className="text-xl font-bold text-gray-200"
         />
-
-        <HierarchyText value={result.hierarchy_headings.title} />
-        <HierarchyText value={result.hierarchy_headings.chapter} />
-        <HierarchyText value={result.hierarchy_headings.subchapter} />
-        <HierarchyText value={result.hierarchy_headings.part} />
-        <HierarchyText value={result.hierarchy_headings.subpart} />
-        <HierarchyText value={result.hierarchy_headings.appendix} />
+        <div className="flex flex-wrap gap-1">
+          <HierarchyText value={result.hierarchy_headings.title} />
+          <HierarchyText value={result.hierarchy_headings.chapter} />
+          <HierarchyText value={result.hierarchy_headings.subchapter} />
+          <HierarchyText value={result.hierarchy_headings.part} />
+          <HierarchyText value={result.hierarchy_headings.subpart} />
+          <HierarchyText value={result.hierarchy_headings.appendix} />
+        </div>
       </div>
       <p dangerouslySetInnerHTML={{ __html: result.full_text_excerpt ?? "" }} />
     </div>
@@ -151,11 +152,7 @@ export const SearchResultsSection = ({
           </div>
         </>
       ) : (
-        <>
-          {!isLoading && (
-            <EmptyText className="py-32">Enter a search query</EmptyText>
-          )}
-        </>
+        <>{!isLoading && <EmptyText className="py-16">None</EmptyText>}</>
       )}
     </Section>
   );

@@ -16,7 +16,7 @@ export const Button = (
     "disabled:cursor-not-allowed",
     variant !== "naked" && "px-4 py-2",
     variant === "full" &&
-      "bg-darkBlue/70 hover:bg-darkBlue/90 rounded-lg hover:text-gray-200",
+      "bg-primary hover:bg-primary/70 rounded-lg hover:text-gray-200",
     variant === "flat" && "hover:text-gray-400 hover:underline",
     variant === "naked" && "bg-transparent",
     className,

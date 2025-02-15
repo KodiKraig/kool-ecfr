@@ -10,7 +10,8 @@ export default {
       },
       colors: {
         lightBlue: "#1c3e75",
-        darkBlue: "#0b1c38",
+        primary: "#1159d1",
+        background: "#0b1c38",
       },
     },
   },

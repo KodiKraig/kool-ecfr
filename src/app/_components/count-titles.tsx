@@ -88,9 +88,7 @@ export const CountTitlesSection = ({
             isLoading={isLoading}
             emptyText={clsx(
               isLoading && "Fetching metrics...",
-              !isLoading &&
-                !data?.titles &&
-                "Enter a search query to see results",
+              !isLoading && !data?.titles && "Enter a search query",
               !isLoading && data?.titles && "No titles found",
             )}
           />

@@ -60,7 +60,7 @@ const HierarchyChild = ({
       <Button
         variant="flat"
         onClick={handleClick}
-        className="flex items-center py-0 disabled:cursor-default"
+        className="flex items-center px-0 py-0 disabled:cursor-default"
         disabled={isDisabled}
       >
         {!isDisabled && (
@@ -100,25 +100,25 @@ const AgencyHierarchyContainer = ({
 }) => {
   return (
     <Section
-      className="min-h-screen gap-4"
+      sectionClassName="gap-1"
+      className="min-h-screen gap-0"
       heading={{
         title: "Hierarchy",
         subtitle:
           "Hierarchical view of the agency's regulation changes with total counts for each title and chapter.",
-        rightContent: (
-          <p className="text-nowrap text-sm text-gray-500">
-            shift + click to expand
-          </p>
-        ),
       }}
     >
-      {children}
+      <p className="invisible self-end text-nowrap text-xs text-gray-500 sm:visible">
+        shift + click to expand
+      </p>
+
+      <div className="flex flex-col gap-4">{children}</div>
     </Section>
   );
 };
 
 const PlaceholderText = () => {
-  return <div className="bg-darkBlue h-8 w-full animate-pulse rounded-md" />;
+  return <div className="bg-primary/20 h-8 w-full animate-pulse rounded-md" />;
 };
 
 export const AgencyHierarchySkeleton = () => {

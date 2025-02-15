@@ -9,7 +9,7 @@ export default function AgencyMetricsLayout({
 }) {
   return (
     <>
-      <div className="bg-lightBlue sticky left-0 right-0 top-0 z-10 w-full border-b border-gray-500">
+      <div className="bg-background sticky left-0 right-0 top-0 z-10 w-full border-b border-gray-700">
         <Link href="/">
           <Button variant="flat" className="flex items-center">
             <ChevronLeft />

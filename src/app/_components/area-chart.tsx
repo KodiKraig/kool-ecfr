@@ -16,7 +16,7 @@ import type {
   ValueType,
   NameType,
 } from "recharts/types/component/DefaultTooltipContent";
-import { TooltipContainer } from "@/app/_components/chart";
+import { TooltipContainer, TooltipValueTitle } from "@/app/_components/chart";
 
 type ChangeLogChartData = {
   formattedDate: string;
@@ -45,9 +45,10 @@ const ChangeLogAreaChartTooltip = ({
 
     return (
       <TooltipContainer>
-        <div className="font-semibold">
-          {roundedNumber(count ?? 0, ",.0f")} Changes
-        </div>
+        <TooltipValueTitle
+          value={roundedNumber(count ?? 0, ",.0f")}
+          title="Changes"
+        />
         {label}
       </TooltipContainer>
     );

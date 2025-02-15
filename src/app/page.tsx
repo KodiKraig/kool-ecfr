@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <HydrateClient>
-      <div className="flex items-center justify-end self-end p-2">
+      <div className="flex items-center justify-end self-end p-3">
         <Link href="/query">
           <Button>Query Regulations</Button>
         </Link>
@@ -22,7 +22,7 @@ export default function Home() {
       <PageContainer className="items-center gap-4 pt-8">
         <PageTitle
           title="Code of Federal Regulations"
-          subtitle="Select an agency below to view metrics"
+          subtitle="Select an agency below to historical metrics"
         />
 
         <Suspense

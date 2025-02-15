@@ -6,15 +6,20 @@ export const Section = ({
   heading,
   children,
   className,
+  sectionClassName,
 }: {
   heading: HeadingProps;
   children: React.ReactNode;
   className?: string;
+  sectionClassName?: string;
 }) => {
   return (
-    <div className={twMerge("flex w-full flex-col gap-2", className)}>
+    <div className={twMerge("flex flex-col gap-4", sectionClassName)}>
       <Heading {...heading} />
-      {children}
+
+      <div className={twMerge("flex w-full flex-col gap-2", className)}>
+        {children}
+      </div>
     </div>
   );
 };

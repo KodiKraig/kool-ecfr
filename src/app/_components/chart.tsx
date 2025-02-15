@@ -10,13 +10,28 @@ export const ChartSkeleton = ({
   return (
     <div
       className={twMerge(
-        "flex h-full w-full flex-col items-center justify-center rounded-lg bg-darkBlue",
+        "bg-primary/20 flex h-full w-full flex-col items-center justify-center rounded-lg",
         isLoading && "animate-pulse",
       )}
     >
       {emptyText && (
         <p className="text-center font-medium text-gray-400">{emptyText}</p>
       )}
+    </div>
+  );
+};
+
+export const TooltipValueTitle = ({
+  value,
+  title,
+}: {
+  value: string;
+  title: string;
+}) => {
+  return (
+    <div className="flex items-center gap-2 font-semibold">
+      {value}
+      <span className="text-sm text-gray-400">{title}</span>
     </div>
   );
 };

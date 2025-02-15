@@ -11,6 +11,7 @@ import { Button } from "@/app/_components/button";
 import { twMerge } from "tailwind-merge";
 import { XCircle } from "@/app/_icons/x-circle";
 import { ArrowPath } from "@/app/_icons/arrow-path";
+import { TrashIcon } from "@/app/_icons/trash";
 
 type Agency = AppRouterOutput["admin"]["searchAgencies"]["agencies"][number];
 
@@ -117,24 +118,22 @@ export function QueryContent() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 md:gap-8">
-      <div className="relative flex w-full flex-col items-center justify-center gap-4 rounded-xl bg-darkBlue/30 p-6 md:w-96 lg:w-[500px]">
-        <div className="absolute right-0 top-0">
+    <div className="flex flex-col gap-8">
+      <div className="bg-primary/20 relative flex w-full flex-col items-center justify-center gap-4 self-center rounded-xl p-6 md:w-96 lg:w-[500px]">
+        <div className="absolute bottom-0 right-0">
           <Button
             variant="naked"
             className={twMerge(
-              "p-2 pr-4 text-sm text-gray-300 hover:text-gray-400",
-              !enabled && "text-gray-600",
+              "p-3 text-sm text-gray-300 hover:text-gray-400",
+              !enabled && "invisible",
             )}
             onClick={onResetClick}
             disabled={isCountingTitles || !enabled}
           >
             {isCountingTitles ? (
-              <ArrowPath
-                className={twMerge("size-5 animate-spin text-gray-500")}
-              />
+              <ArrowPath className="size-5 animate-spin text-gray-400" />
             ) : (
-              <p>Reset</p>
+              <TrashIcon />
             )}
           </Button>
         </div>

@@ -28,20 +28,18 @@ export default async function AgencyMetricsPage({ params }: Props) {
 
   return (
     <HydrateClient>
-      <PageContainer>
-        <div className="flex flex-col items-center gap-8">
-          <Suspense fallback={<AgencyInfoSkeleton />}>
-            <AgencyInfo slug={slug} />
-          </Suspense>
+      <PageContainer className="gap-8">
+        <Suspense fallback={<AgencyInfoSkeleton />}>
+          <AgencyInfo slug={slug} />
+        </Suspense>
 
-          <Suspense fallback={<ChangelogSkeleton />}>
-            <Changelog slug={slug} />
-          </Suspense>
+        <Suspense fallback={<ChangelogSkeleton />}>
+          <Changelog slug={slug} />
+        </Suspense>
 
-          <Suspense fallback={<AgencyHierarchySkeleton />}>
-            <AgencyHierarchy slug={slug} />
-          </Suspense>
-        </div>
+        <Suspense fallback={<AgencyHierarchySkeleton />}>
+          <AgencyHierarchy slug={slug} />
+        </Suspense>
       </PageContainer>
     </HydrateClient>
   );
