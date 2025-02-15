@@ -27,4 +27,38 @@ export const adminRouter = createTRPCRouter({
 
       return { agency };
     }),
+  searchAgencies: publicProcedure
+    .input(
+      z.object({
+        query: z.string().trim().toLowerCase(),
+        excludedAgencySlugs: z
+          .array(z.string().trim().toLowerCase())
+          .optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const { agencies } = await ctx.ecfr.admin.getAgencies();
+
+      let filtered = agencies;
+
+      if (input.excludedAgencySlugs && input.excludedAgencySlugs.length > 0) {
+        filtered = filtered.filter(
+          (agency) =>
+            !input.excludedAgencySlugs!.includes(agency.slug.toLowerCase()),
+        );
+      }
+
+      if (input.query.length > 0) {
+        filtered = agencies
+          .flatMap((agency) => [agency, ...agency.children])
+          .filter(
+            (agency) =>
+              agency.name?.toLowerCase().includes(input.query) ||
+              agency.short_name?.toLowerCase().includes(input.query) ||
+              agency.slug.toLowerCase().includes(input.query),
+          );
+      }
+
+      return { agencies: filtered };
+    }),
 });

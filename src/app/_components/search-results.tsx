@@ -78,15 +78,18 @@ const SearchResult = ({ result }: { result: SearchResultType }) => {
 
 export const SearchResultsSection = ({
   query,
+  agencySearchSlugs,
   enabled,
 }: {
   query: string;
+  agencySearchSlugs: string[];
   enabled: boolean;
 }) => {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     api.search.results.useInfiniteQuery(
       {
         query,
+        agencySlugs: agencySearchSlugs,
       },
       {
         getNextPageParam: (lastPage) => lastPage.nextCursor,

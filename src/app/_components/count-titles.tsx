@@ -52,13 +52,15 @@ const Cards = ({
 
 export const CountTitlesSection = ({
   query,
+  agencySearchSlugs,
   enabled,
 }: {
   query: string;
+  agencySearchSlugs: string[];
   enabled: boolean;
 }) => {
   const { data, isLoading } = api.search.countsTitles.useQuery(
-    { query },
+    { query, agencySlugs: agencySearchSlugs },
     { enabled },
   );
 
