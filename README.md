@@ -8,15 +8,15 @@ _This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t
 
 - Reference locations for the agency in the CFR
 - Chart view of the agency's regulation changes over time
-- Total, Average, Maximum, and number of days with changes for the agency
-- Hierarchical view of the agency's regulation changes with total counts for each title and chapter
+- View total, average, maximum, and number of days with changes for the agency
+- Hierarchical view of the agency's regulation changes with totals for each title and chapter
 
 ## Query Feature
 
 - Filter the CFR by keywords and agencies
 - View occurrences of the query within the CFR across all titles in a chart
-- View the total, average, and maximum occurrences for the query
-- Search results view by CFR section with text excerpts for each occurrence
+- View the total, average, and maximum occurrences for the query across all titles
+- View search results by CFR section with text excerpts for each occurrence
 
 ## Running the project
 
