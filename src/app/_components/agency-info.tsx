@@ -56,6 +56,7 @@ const AgencyInfoContainer = ({
       </div>
 
       <Section
+        sectionClassName="self-center"
         className="w-fit"
         heading={{
           title: "References",

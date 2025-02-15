@@ -119,7 +119,7 @@ export function QueryContent() {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="bg-primary/20 relative flex w-full flex-col items-center justify-center gap-4 self-center rounded-xl p-6 md:w-96 lg:w-[500px]">
+      <div className="bg-primary/10 relative flex w-full flex-col items-center justify-center gap-4 self-center rounded-xl p-6 md:w-96 lg:w-[500px]">
         <div className="absolute bottom-0 right-0">
           <Button
             variant="naked"
