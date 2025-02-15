@@ -26,7 +26,11 @@ export default function Home() {
         />
 
         <Suspense
-          fallback={<div className="self-center">Loading agencies...</div>}
+          fallback={
+            <div className="animate-pulse self-center py-8 text-gray-400">
+              Loading agencies...
+            </div>
+          }
         >
           <AgencyList />
         </Suspense>
