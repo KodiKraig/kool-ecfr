@@ -22,7 +22,7 @@ export default function Home() {
       <PageContainer className="items-center gap-4 pt-8">
         <PageTitle
           title="Code of Federal Regulations"
-          subtitle="Select an agency below to historical metrics"
+          subtitle="Select an agency below to view historical metrics"
         />
 
         <Suspense
